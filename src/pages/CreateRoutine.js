@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Container, Form, Button, ListGroup, Card } from "react-bootstrap";
+import { Container, ListGroup, Card, Button } from "react-bootstrap";
 import { Pencil, XCircle } from "react-bootstrap-icons";
+import WorkoutForm from "../components/WorkoutForm";
 import {
   addExercise,
   saveRoutine,
@@ -15,82 +16,53 @@ const CreateRoutine = () => {
   const [routineName, setRoutineName] = useState("");
   const [routines, setRoutines] = useState([]);
   const [currentExercises, setCurrentExercises] = useState([]);
-  const [exercise, setExercise] = useState({ name: "", sets: "", reps: "", weight: "" });
   const [editingExercise, setEditingExercise] = useState(null);
+  const [editingRoutine, setEditingRoutine] = useState(null);
 
   return (
     <Container className="my-4">
       <h2>Create Your Workout Routine</h2>
 
       {/* Routine Name Input */}
-      <Form.Group className="mb-3">
-        <Form.Label>Routine Name</Form.Label>
-        <Form.Control
+      <div className="mb-3 d-flex align-items-center">
+        <input
           type="text"
+          className="form-control"
           value={routineName}
           onChange={(e) => setRoutineName(e.target.value)}
           placeholder="Enter Routine Name"
         />
-      </Form.Group>
+        {editingRoutine && (
+          <Button
+            variant="success"
+            className="ms-2"
+            onClick={() => {
+              const updatedRoutines = routines.map((routine) =>
+                routine.id === editingRoutine ? { ...routine, name: routineName } : routine
+              );
+              setRoutines(updatedRoutines);
+              setEditingRoutine(null);
+              setRoutineName("");
+            }}
+          >
+            Save Name
+          </Button>
+        )}
+      </div>
 
-      {/* Exercise Form */}
-      <h4>{editingExercise ? "Edit Exercise" : "Add Exercise"}</h4>
-      <Form>
-        <Form.Group className="mb-2">
-          <Form.Label>Exercise Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="name"
-            value={exercise.name}
-            onChange={(e) => setExercise({ ...exercise, [e.target.name]: e.target.value })}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-2">
-          <Form.Label>Sets</Form.Label>
-          <Form.Control
-            type="number"
-            name="sets"
-            value={exercise.sets}
-            onChange={(e) => setExercise({ ...exercise, [e.target.name]: e.target.value })}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-2">
-          <Form.Label>Reps</Form.Label>
-          <Form.Control
-            type="number"
-            name="reps"
-            value={exercise.reps}
-            onChange={(e) => setExercise({ ...exercise, [e.target.name]: e.target.value })}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-2">
-          <Form.Label>Weight (lbs)</Form.Label>
-          <Form.Control
-            type="number"
-            name="weight"
-            value={exercise.weight}
-            onChange={(e) => setExercise({ ...exercise, [e.target.name]: e.target.value })}
-          />
-        </Form.Group>
-
-        <Button
-          variant={editingExercise ? "warning" : "secondary"}
-          className="mt-2"
-          onClick={() => {
-            if (editingExercise) {
-              editExercise(editingExercise.routineId, editingExercise.id, exercise, routines, setRoutines);
-              setEditingExercise(null);
-            } else {
-              addExercise(exercise, setExercise, currentExercises, setCurrentExercises);
-            }
-          }}
-        >
-          {editingExercise ? "Update Exercise" : "Add Exercise"}
-        </Button>
-      </Form>
+      {/* WorkoutForm for Adding/Editing Exercises */}
+      <WorkoutForm
+        onSave={(exercise) => {
+          if (editingExercise) {
+            editExercise(editingExercise.routineId, editingExercise.id, exercise, routines, setRoutines);
+            setEditingExercise(null);
+          } else {
+            addExercise(exercise, () => {}, currentExercises, setCurrentExercises);
+          }
+        }}
+        editingExercise={editingExercise}
+        onCancel={() => setEditingExercise(null)}
+      />
 
       {/* ✅ List of Exercises BEFORE Saving Routine */}
       {currentExercises.length > 0 && (
@@ -131,7 +103,45 @@ const CreateRoutine = () => {
       {routines.map((routine) => (
         <Card className="mb-3" key={routine.id}>
           <Card.Body>
-            <Card.Title>{routine.name}</Card.Title>
+            <Card.Title className="d-flex justify-content-between align-items-center">
+              {editingRoutine === routine.id ? (
+                <input
+                  type="text"
+                  className="form-control"
+                  value={routineName}
+                  onChange={(e) => setRoutineName(e.target.value)}
+                />
+              ) : (
+                routine.name
+              )}
+              <div>
+                {editingRoutine === routine.id ? (
+                  <Button
+                    variant="success"
+                    size="sm"
+                    onClick={() => {
+                      const updatedRoutines = routines.map((r) =>
+                        r.id === routine.id ? { ...r, name: routineName } : r
+                      );
+                      setRoutines(updatedRoutines);
+                      setEditingRoutine(null);
+                      setRoutineName("");
+                    }}
+                  >
+                    Save
+                  </Button>
+                ) : (
+                  <Pencil
+                    className="text-primary"
+                    role="button"
+                    onClick={() => {
+                      setEditingRoutine(routine.id);
+                      setRoutineName(routine.name);
+                    }}
+                  />
+                )}
+              </div>
+            </Card.Title>
             <ListGroup>
               {routine.exercises.map((ex) => (
                 <ListGroup.Item key={ex.id} className="d-flex justify-content-between align-items-center">
