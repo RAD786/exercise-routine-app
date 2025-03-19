@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, ListGroup, Card, Button } from "react-bootstrap";
+import { Container, ListGroup, Card, Button, Input, Form } from "reactstrap";
 import { Pencil, XCircle } from "react-bootstrap-icons";
 import WorkoutForm from "../components/WorkoutForm";
 import {
@@ -19,22 +19,23 @@ const CreateRoutine = () => {
   const [editingExercise, setEditingExercise] = useState(null);
   const [editingRoutine, setEditingRoutine] = useState(null);
 
+  console.log("WorkoutForm: ", WorkoutForm);
+
+
   return (
     <Container className="my-4">
       <h2>Create Your Workout Routine</h2>
 
-      {/* Routine Name Input */}
-      <div className="mb-3 d-flex align-items-center">
-        <input
+      <Form className="mb-3 d-flex align-items-center">
+        <Input
           type="text"
-          className="form-control"
           value={routineName}
           onChange={(e) => setRoutineName(e.target.value)}
           placeholder="Enter Routine Name"
         />
         {editingRoutine && (
           <Button
-            variant="success"
+            color="success"
             className="ms-2"
             onClick={() => {
               const updatedRoutines = routines.map((routine) =>
@@ -48,9 +49,8 @@ const CreateRoutine = () => {
             Save Name
           </Button>
         )}
-      </div>
+      </Form>
 
-      {/* WorkoutForm for Adding/Editing Exercises */}
       <WorkoutForm
         onSave={(exercise) => {
           if (editingExercise) {
@@ -64,7 +64,6 @@ const CreateRoutine = () => {
         onCancel={() => setEditingExercise(null)}
       />
 
-      {/* ✅ List of Exercises BEFORE Saving Routine */}
       {currentExercises.length > 0 && (
         <>
           <h4 className="mt-4">Exercises in This Routine</h4>
@@ -90,24 +89,21 @@ const CreateRoutine = () => {
         </>
       )}
 
-      {/* Save Routine Button */}
       <Button
         className="mt-3"
-        variant="success"
+        color="success"
         onClick={() => saveRoutine(routineName, currentExercises, routines, setRoutines, setRoutineName, setCurrentExercises)}
       >
         Save Routine
       </Button>
 
-      {/* List of Saved Routines */}
       {routines.map((routine) => (
         <Card className="mb-3" key={routine.id}>
           <Card.Body>
             <Card.Title className="d-flex justify-content-between align-items-center">
               {editingRoutine === routine.id ? (
-                <input
+                <Input
                   type="text"
-                  className="form-control"
                   value={routineName}
                   onChange={(e) => setRoutineName(e.target.value)}
                 />
@@ -117,7 +113,7 @@ const CreateRoutine = () => {
               <div>
                 {editingRoutine === routine.id ? (
                   <Button
-                    variant="success"
+                    color="success"
                     size="sm"
                     onClick={() => {
                       const updatedRoutines = routines.map((r) =>
@@ -161,7 +157,7 @@ const CreateRoutine = () => {
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            <Button className="mt-2" variant="danger" onClick={() => deleteRoutine(routine.id, routines, setRoutines)}>
+            <Button className="mt-2" color="danger" onClick={() => deleteRoutine(routine.id, routines, setRoutines)}>
               Delete Routine
             </Button>
           </Card.Body>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Button, ListGroup, Row, Col } from "react-bootstrap";
+import { Container, Button, ListGroup, Row, Col } from "reactstrap";
 
 const routines = {
   Beginner: [
@@ -26,12 +26,11 @@ const RoutineSelector = ({ onSelectRoutine }) => {
     <Container className="mt-4">
       <h2>Select a Routine</h2>
 
-      {/* Routine Selection Buttons */}
       <Row className="mb-4">
         {["Beginner", "Intermediate", "Advanced"].map((level) => (
           <Col xs="auto" key={level} className="p-1">
             <Button
-              variant={selectedRoutine === level ? "success" : "primary"}
+              color={selectedRoutine === level ? "success" : "primary"}
               onClick={() => {
                 setSelectedRoutine(level);
                 onSelectRoutine(routines[level]);
@@ -43,7 +42,6 @@ const RoutineSelector = ({ onSelectRoutine }) => {
         ))}
       </Row>
 
-      {/* Display Selected Routine */}
       <h3>{selectedRoutine} Routine</h3>
       <ListGroup>
         {routines[selectedRoutine].map((exercise, index) => (

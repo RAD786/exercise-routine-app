@@ -6,7 +6,6 @@ const Footer = () => {
         <footer className="bg-dark text-light py-3 mt-auto">
             <Container>
                 <Row className="align-items-center">
-                    {/* Left Section - Site Links */}
                     <Col md="6">
                         <NavLink to="/" className="text-light me-3">Home</NavLink>
                         <NavLink to="/create" className="text-light me-3">Create Routine</NavLink>
@@ -14,9 +13,8 @@ const Footer = () => {
                         <NavLink to="/contact" className="text-light">Contact</NavLink>
                     </Col>
 
-                    {/* Right Section - Copyright */}
                     <Col md="6" className="text-md-end">
-                        <small>&copy; {new Date().getFullYear()} Exercise Routine App. All Rights Reserved.</small>
+                        <small>&copy; {new Date().getFullYear()} Exercise Routine App. RAD786</small>
                     </Col>
                 </Row>
             </Container>

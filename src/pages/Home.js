@@ -1,15 +1,29 @@
-import { Container, Button } from "react-bootstrap";
+import { Container, Button } from "reactstrap";
 import { Link } from "react-router-dom";
+import bgImage from "../app/assets/img/fitness-background.png";
 
 const Home = () => {
   return (
-    <Container className="text-center mt-5">
+    <Container
+      fluid
+      className="home-container d-flex flex-column justify-content-center align-items-center text-center"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        height: "90vh",
+        width: "100%",
+        color: "white",
+        textShadow: "2px 2px 4px rgba(0, 0, 0, 0.9)",
+      }}
+    >
       <h2>Welcome to the Exercise Routine App</h2>
       <p>Select an option to get started:</p>
-      <Button variant="primary" as={Link} to="/create" className="m-2">
+      <Button color="primary" tag={Link} to="/create" className="m-2">
         Create a Workout
       </Button>
-      <Button variant="success" as={Link} to="/routines" className="m-2">
+      <Button color="success" tag={Link} to="/routines" className="m-2">
         Follow a Routine
       </Button>
     </Container>
