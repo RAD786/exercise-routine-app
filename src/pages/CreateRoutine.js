@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, ListGroup, Card, Button, Input, Form } from "reactstrap";
+import { Container, ListGroup, ListGroupItem, Card, CardBody, CardTitle, Button, Input, Form } from "reactstrap";
 import { Pencil, XCircle } from "react-bootstrap-icons";
 import WorkoutForm from "../components/WorkoutForm";
 import {
@@ -69,7 +69,7 @@ const CreateRoutine = () => {
           <h4 className="mt-4">Exercises in This Routine</h4>
           <ListGroup>
             {currentExercises.map((ex) => (
-              <ListGroup.Item key={ex.id} className="d-flex justify-content-between align-items-center">
+              <ListGroupItem key={ex.id} className="d-flex justify-content-between align-items-center">
                 {ex.name} - {ex.sets} Sets x {ex.reps} Reps @ {ex.weight} lbs
                 <div>
                   <Pencil
@@ -83,7 +83,7 @@ const CreateRoutine = () => {
                     onClick={() => setCurrentExercises(currentExercises.filter((item) => item.id !== ex.id))}
                   />
                 </div>
-              </ListGroup.Item>
+              </ListGroupItem>
             ))}
           </ListGroup>
         </>
@@ -99,8 +99,8 @@ const CreateRoutine = () => {
 
       {routines.map((routine) => (
         <Card className="mb-3" key={routine.id}>
-          <Card.Body>
-            <Card.Title className="d-flex justify-content-between align-items-center">
+          <CardBody>
+            <CardTitle tag="h5" className="d-flex justify-content-between align-items-center">
               {editingRoutine === routine.id ? (
                 <Input
                   type="text"
@@ -137,10 +137,10 @@ const CreateRoutine = () => {
                   />
                 )}
               </div>
-            </Card.Title>
+            </CardTitle>
             <ListGroup>
               {routine.exercises.map((ex) => (
-                <ListGroup.Item key={ex.id} className="d-flex justify-content-between align-items-center">
+                <ListGroupItem key={ex.id} className="d-flex justify-content-between align-items-center">
                   {ex.name} - {ex.sets} Sets x {ex.reps} Reps @ {ex.weight} lbs
                   <div>
                     <Pencil
@@ -154,13 +154,13 @@ const CreateRoutine = () => {
                       onClick={() => deleteExercise(routine.id, ex.id, routines, setRoutines)}
                     />
                   </div>
-                </ListGroup.Item>
+                </ListGroupItem>
               ))}
             </ListGroup>
             <Button className="mt-2" color="danger" onClick={() => deleteRoutine(routine.id, routines, setRoutines)}>
               Delete Routine
             </Button>
-          </Card.Body>
+          </CardBody>
         </Card>
       ))}
     </Container>
