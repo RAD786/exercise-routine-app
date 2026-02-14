@@ -6,10 +6,8 @@ import {
   addExercise,
   saveRoutine,
   deleteRoutine,
-  editRoutine,
   deleteExercise,
   editExercise,
-  MAX_ROUTINES,
 } from "../utils/routineUtils";
 
 const CreateRoutine = () => {

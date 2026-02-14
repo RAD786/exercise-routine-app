@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import RoutineSelector from "../components/RoutineSelector";
 
 const Routines = () => {
-  const [selectedRoutine, setSelectedRoutine] = useState(null);
+  const [, setSelectedRoutine] = useState(null);
 
   return (
     <Container className="my-4">
