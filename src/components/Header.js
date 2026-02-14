@@ -20,7 +20,7 @@ const Header = () => {
                     src={ERAlogo}
                     alt='Exercise Routine App Logo'
                     className='float-start'
-                    style={{ height: '50px', width: 'auto' }} // Adjust size as needed
+                    style={{ height: '70px', width: 'auto' }}
                 />
             </NavbarBrand>
             <NavbarToggler onClick={() => setMenuOpen(!menuOpen)} />

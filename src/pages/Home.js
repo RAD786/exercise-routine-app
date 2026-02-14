@@ -18,12 +18,12 @@ const Home = () => {
         textShadow: "2px 2px 4px rgba(0, 0, 0, 0.9)",
       }}
     >
-      <h2>Welcome to the Exercise Routine App</h2>
-      <p>Select an option to get started:</p>
-      <Button color="primary" tag={Link} to="/create" className="m-2">
+      <h2 className="home-hero-title">Welcome to the Exercise Routine App</h2>
+      <p className="home-hero-subtitle">Select an option to get started:</p>
+      <Button color="primary" tag={Link} to="/create" className="m-2 home-hero-button">
         Create a Workout
       </Button>
-      <Button color="success" tag={Link} to="/routines" className="m-2">
+      <Button color="success" tag={Link} to="/routines" className="m-2 home-hero-button">
         Follow a Routine
       </Button>
     </Container>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Button, ListGroup, Row, Col } from "reactstrap";
+import { Container, Button, ListGroup, ListGroupItem, Row, Col } from "reactstrap";
 
 const routines = {
   Beginner: [
@@ -45,9 +45,9 @@ const RoutineSelector = ({ onSelectRoutine }) => {
       <h3>{selectedRoutine} Routine</h3>
       <ListGroup>
         {routines[selectedRoutine].map((exercise, index) => (
-          <ListGroup.Item key={index} className="text-start">
+          <ListGroupItem key={index} className="text-start">
             {exercise.name} - {exercise.sets} Sets x {exercise.reps} Reps
-          </ListGroup.Item>
+          </ListGroupItem>
         ))}
       </ListGroup>
     </Container>

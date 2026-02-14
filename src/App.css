@@ -15,3 +15,20 @@ footer {
     padding: 15px 0;
 }
 
+.home-hero-title {
+    font-size: clamp(2.25rem, 4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+}
+
+.home-hero-subtitle {
+    font-size: clamp(1rem, 1.6vw, 1.35rem);
+    margin-bottom: 1.25rem;
+}
+
+.home-hero-button {
+    font-size: 1.05rem;
+    padding: 0.75rem 1.5rem;
+}
+
